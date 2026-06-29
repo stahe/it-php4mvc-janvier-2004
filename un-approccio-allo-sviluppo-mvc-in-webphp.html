@@ -12,7 +12,7 @@
         <meta name="author" content="Serge Tahé">
       
       
-        <link rel="canonical" href="https://stahe.github.io/it-php4mvc-janvier-2004/un-approccio-di-sviluppo-mvc-per-webphp.html">
+        <link rel="canonical" href="https://stahe.github.io/it-php4mvc-janvier-2004/un-approccio-allo-sviluppo-mvc-in-webphp.html">
       
       
         <link rel="prev" href="utilizzo-dellarchitettura-mvc-nelle-applicazioni-webphp.html">
@@ -29,7 +29,7 @@
     
     
       
-        <title>2. Un approccio di sviluppo MVC per Web/PHP - Metodologia di sviluppo MVC per un'applicazione web PHP4</title>
+        <title>2. Un approccio allo sviluppo MVC in web/PHP - Metodologia di sviluppo MVC per un'applicazione web PHP4</title>
       
     
     
@@ -56,6 +56,8 @@
     
     
       <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -92,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2-un-approccio-di-sviluppo-mvc-per-webphp" class="md-skip">
+        <a href="#2-un-approccio-allo-sviluppo-mvc-in-webphp" class="md-skip">
           Skip to content
         </a>
       
@@ -128,7 +130,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              2. Un approccio di sviluppo MVC per Web/PHP
+              2. Un approccio allo sviluppo MVC in web/PHP
             
           </span>
         </div>
@@ -310,7 +312,7 @@
   <span class="md-ellipsis">
     
   
-    1. Utilizzo dell'architettura MVC nelle applicazioni web/PHP
+    1. Utilizzo dell’architettura MVC nelle applicazioni web/PHP
   
 
     
@@ -339,14 +341,14 @@
         
       
       
-      <a href="un-approccio-di-sviluppo-mvc-per-webphp.html" class="md-nav__link md-nav__link--active">
+      <a href="un-approccio-allo-sviluppo-mvc-in-webphp.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    2. Un approccio di sviluppo MVC per Web/PHP
+    2. Un approccio allo sviluppo MVC in web/PHP
   
 
     
@@ -394,14 +396,14 @@
   
   
     <li class="md-nav__item">
-      <a href="unapplicazione-illustrativa.html" class="md-nav__link">
+      <a href="unapplicazione-esemplificativa.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4. Un'applicazione illustrativa
+    4. Un'applicazione esemplificativa
   
 
     
@@ -431,35 +433,40 @@
 
 
 
-<p><a id="refheading29948107341754"></a></p>
-<h1 id="2-un-approccio-di-sviluppo-mvc-per-webphp">2. <span style="color: #365f91">Un approccio di sviluppo MVC per Web/PHP</span></h1>
-<p>Qui proponiamo un approccio per lo sviluppo di applicazioni web/PHP basate sull&#x27;architettura MVC. Il nostro intento è solo quello di fornire un punto di partenza. Il lettore è invitato ad adattarlo alle proprie preferenze ed esigenze.</p>
+<p><span id="refheading29948107341754" name="refheading29948107341754" class="odt-bookmark-anchor"></span></p>
+<h1 id="2-un-approccio-allo-sviluppo-mvc-in-webphp">2. <span style="color: #365f91">Un approccio allo sviluppo MVC in web/PHP</span></h1>
+<p>Proponiamo qui un approccio per lo sviluppo di applicazioni web/PHP che rispettino l’architettura MVC. Esso ha solo lo scopo di fornire spunti. Il lettore lo adatterà ai propri gusti ed esigenze.</p>
 <ol>
-<li>Inizieremo definendo tutte le viste dell&#x27;applicazione. Si tratta delle pagine web presentate all&#x27;utente. Adotteremo la prospettiva dell&#x27;utente nella progettazione delle viste. Esistono tre tipi di viste:<ul>
-<li>il <strong>modulo di input</strong>, progettato per raccogliere informazioni dall&#x27;utente. In genere include un pulsante per inviare le informazioni inserite al server.</li>
-<li><strong>La pagina di risposta</strong>, che serve solo a fornire informazioni all&#x27;utente. Spesso include uno o più link che consentono all&#x27;utente di continuare a utilizzare l&#x27;applicazione su un&#x27;altra pagina.</li>
-<li>la <strong>pagina mista</strong>: il controller ha inviato al client una pagina contenente le informazioni che ha generato. Questa stessa pagina verrà utilizzata dal client per fornire al controller nuove informazioni provenienti dall&#x27;utente.</li>
-</ul>
-</li>
-</ol>
-<ol start="2">
-  <li>Ogni vista genererà una pagina PHP. Per ciascuna di queste:
+  <li>Si inizierà definendo tutte le viste dell’applicazione. Queste sono le pagine web presentate all’utente. Ci si metterà nei panni dell’utente per progettare le viste. Si distinguono tre tipi di viste:
     <ul>
-      <li>progetteremo il layout della pagina
+      <li>il <b>modulo di inserimento dati</b>, che serve a ottenere informazioni dall’utente. Di solito è dotato di un pulsante per inviare al server le informazioni inserite.
       </li>
-      <li>determineremo quali parti di essa sono dinamiche:
+      <li>la <b>pagina di risposta</b>, che serve esclusivamente a fornire informazioni all’utente. Spesso questa pagina dispone di uno o più link che consentono all’utente di proseguire l’utilizzo dell’applicazione con un’altra pagina.
+      </li>
+      <li>la <b>pagina mista</b>: il controller ha inviato al client una pagina contenente informazioni da esso generate. Quella stessa pagina servirà al client per fornire al controller nuove informazioni provenienti dall’utente.
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<ol start="2">
+  <li>Ogni vista darà origine a una pagina PHP. Per ciascuna di esse:
+    <ul>
+      <li>si definirà l’aspetto della pagina
+      </li>
+      <li>si determineranno quali sono le parti dinamiche della stessa:
         <ul>
-          <li>le informazioni destinate all&#x27;utente che devono essere fornite dal controller come parametri alla vista PHP. Una soluzione semplice è la seguente:
+          <li>le informazioni destinate all’utente che dovranno essere fornite dal controller come parametri alla vista PHP. Una soluzione semplice è la seguente:
             <ul>
-              <li>Il controller inserisce le informazioni che desidera fornire a una vista V in un dizionario <b>$dResponse</b>
+              <li>il controller inserisce in un dizionario <b>$dReponse </b>le informazioni che desidera fornire a una vista V
               </li>
-              <li>Il controller visualizza la vista V. Se questa corrisponde al file sorgente <b>V.php</b>, la visualizzazione si ottiene semplicemente con l&#x27;istruzione<b> include V.php</b>.
+              <li>il controller fa visualizzare la vista V. Se questa corrisponde al file sorgente <b>V.php</b>, tale visualizzazione si ottiene semplicemente tramite l&#x27;istruzione <b>include V.php</b>.
               </li>
-              <li>L&#x27;inclusione precedente è un&#x27;inclusione di codice all&#x27;interno del controller. Il dizionario <b>$dResponse </b>popolato dal controller è direttamente accessibile dal codice in <b>V.php</b>.
+              <li>L’inclusione precedente è un’inclusione di codice all’interno del controller. Il dizionario <b>$dReponse, </b>compilato da quest’ultimo, è accessibile direttamente tramite il codice di <b>V.php</b>.
               </li>
             </ul>
           </li>
-          <li>I dati di input che devono essere trasmessi al programma principale per l&#x27;elaborazione. Questi dati devono far parte di un modulo HTML (<b>tag &lt;form&gt;</b>).
+          <li>I dati immessi che dovranno essere trasmessi al programma principale per l’elaborazione. Questi dovranno far parte di un modulo HTML (<b>tag &lt;form&gt;</b>).
           </li>
         </ul>
       </li>
@@ -468,27 +475,27 @@
 </ol>
 
 <ol start="3">
-  <li>Possiamo schematizzare l&#x27;I/O per ciascuna vista 
+  <li>È possibile schematizzare gli I/O di ciascuna vista 
   </li>
 </ol>
 
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000037500000083B3B63FBF.png" width="443" height="65" style="display:inline-block; margin:4px;width:11.709cm;height:1.732cm;" class="odt-zoomable" data-zoom-src="images/100000000000037500000083B3B63FBF.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000037500000083B3B63FBF.png" width="443" height="66" style="display:inline-block; margin:4px;width:11.709cm;height:1.734cm;" class="odt-zoomable" data-zoom-src="images/100000000000037500000083B3B63FBF.png" /></td></tr></table>
 
 <ul>
-  <li>Gli input sono i dati che il controller deve fornire alla pagina PHP
+  <li>gli ingressi sono i dati che il controller dovrà fornire alla pagina PHP
   </li>
-  <li>Gli output sono i dati che la pagina PHP deve fornire al controller dell&#x27;applicazione. Fanno parte di un modulo HTML e il controller li recupererà utilizzando un&#x27;operazione come <b>$_GET[&quot;param&quot;] </b>(metodo GET) o <b>$_POST[&quot;param&quot;] </b>(metodo POST).
+  <li>le uscite sono i dati che la pagina PHP dovrà fornire al controller dell’applicazione. Fanno parte di un modulo HTML e il controller li recupererà tramite un&#x27;operazione del tipo <b>$_GET[&quot;param&quot;]</b> (metodo GET) oppure <b>$_POST[&quot;param&quot;] </b>(metodo POST).
   </li>
 </ul>
 
 <ol start="4">
-  <li>Spesso, la pagina finale inviata al client non è una singola vista, ma una composizione di viste. Ad esempio, la pagina inviata a un utente potrebbe apparire così:
+  <li>Spesso la pagina finale inviata al cliente non è una singola vista, ma una composizione di viste. Ad esempio, la pagina inviata a un utente può avere la seguente struttura:
   </li>
 </ol>
 
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000023D0000010983D41FDC.png" width="287" height="133" style="display:inline-block; margin:4px;width:7.581cm;height:3.507cm;" class="odt-zoomable" data-zoom-src="images/100000000000023D0000010983D41FDC.png" /></td></tr></table>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000023D0000010983D41FDC.png" width="287" height="133" style="display:inline-block; margin:4px;width:7.581cm;height:3.507cm;" class="odt-zoomable" data-zoom-src="images/100000000000023D0000010983D41FDC.png" /></td></tr></table>
 
-<p>L&#x27;area 1 può essere un banner di intestazione, l&#x27;area 2 un banner di menu e l&#x27;area 3 un&#x27;area di contenuto. In PHP, questa composizione può essere ottenuta utilizzando il seguente codice HTML/PHP:</p>
+<p>L’area 1 può essere un banner di titolo, l’area 2 un banner di menu, l’area 3 un’area di contenuto. In PHP questa composizione può essere ottenuta tramite il seguente codice HTML/PHP:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span><span class="cp">&lt;?php include zone1.php ?&gt;</span><span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
@@ -500,33 +507,33 @@
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>È possibile rendere questo codice dinamico scrivendo:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span><span class="cp">&lt;?php include $dReponse[&#39;urlZone1&#39;] ?&gt;</span><span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span><span class="cp">&lt;?php include $dReponse[&#39;urlZone2&#39;] ?&gt;</span><span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span><span class="cp">&lt;?php include $dReponse[&#39;urlZone3&#39;] ?&gt;</span><span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">&lt;</span><span class="n">table</span><span class="o">&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;?</span><span class="n">php</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">$dReponse</span><span class="o">[</span><span class="err">&#39;</span><span class="n">urlZone1</span><span class="err">&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">?&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;?</span><span class="n">php</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">$dReponse</span><span class="o">[</span><span class="err">&#39;</span><span class="n">urlZone2</span><span class="err">&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">?&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;&lt;?</span><span class="n">php</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">$dReponse</span><span class="o">[</span><span class="err">&#39;</span><span class="n">urlZone3</span><span class="err">&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">?&gt;&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
 </code></pre></div>
-<p>Questa composizione della vista può essere l&#x27;unico formato della risposta inviata all&#x27;utente. In questo caso, ogni risposta al client deve impostare i tre URL da caricare nelle tre zone prima di visualizzare la pagina di risposta. Possiamo generalizzare questo esempio immaginando che esistano diversi modelli possibili per la pagina di risposta. La risposta al client deve quindi:</p>
+<p>Questa composizione di viste può costituire l&#x27;unico formato della risposta fornita all&#x27;utente. In questo caso, ogni risposta al cliente dovrà specificare i tre URL da caricare nelle tre aree prima di visualizzare la pagina di risposta. È possibile generalizzare questo esempio immaginando che esistano diversi modelli possibili per la pagina di risposta. La risposta al cliente dovrà quindi:</p>
 <ul>
-  <li>determinare il modello da utilizzare
+  <li>specificare il modello da utilizzare
   </li>
-  <li>determinare gli elementi da includere in essa
+  <li>specificare gli elementi da includere in esso
   </li>
   <li>richiedere la visualizzazione del modello
   </li>
 </ul>
 
-<ol start="5">
-  <li>Scriveremo il codice PHP/HTML per ciascun modello di risposta. Il codice è generalmente semplice. Il codice per l&#x27;esempio sopra riportato potrebbe essere:
+<ol>
+  <li>Scriveremo il codice PHP/HTML di ciascun modello di risposta. Il codice è generalmente semplice. Quello dell’esempio sopra riportato potrebbe essere:
   </li>
 </ol>
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="c1">// initializations for testing without a controller</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="c1">// inizializzazioni per i test senza controller</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">...</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">?&gt;</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="x">&lt;html&gt;</span>
@@ -547,41 +554,41 @@
 <a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="x">  &lt;body&gt;</span>
 <a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="x">&lt;/html&gt;</span>
 </code></pre></div>
-<p>Quando possibile, useremo un foglio di stile in modo da poter modificare l&#x27;aspetto della risposta senza dover modificare il codice PHP/HTML.</p>
+<p>Ogni volta che è possibile, si utilizzerà un foglio di stile per poter modificare l&#x27;aspetto della risposta senza dover modificare il codice PHP/HTML.</p>
 <ol>
-  <li>Scriveremo il codice PHP/HTML per ogni vista di base. Il più delle volte assumerà la seguente forma:
+  <li>Si scriverà il codice PHP/HTML per ogni vista elementare. Nella maggior parte dei casi avrà la seguente forma:
   </li>
 </ol>
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>     <span class="c1">// a few initializations may be necessary, particularly in the debugging phase</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>     <span class="c1">// eventualmente alcune inizializzazioni, in particolare in fase di debug</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="o">...</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="cp">?&gt;</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="x">&lt;balise&gt;</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="x">...</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="x">         // here we&#39;ll try to minimize the php code</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="x">         // in questa fase si cercherà di ridurre al minimo il codice PHP</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="x">&lt;/balise&gt;</span>
 </code></pre></div>
-<p>Si noti che una vista di base è incorporata in un modello. Il suo codice HTML è integrato nel codice del modello. Molto spesso, il modello include già i tag &lt;html&gt;, &lt;head&gt; e &lt;body&gt;. È quindi raro trovare questi tag in una vista di base.</p>
+<p>Si noti che una vista elementare si integra in un modello. Il suo codice HTML viene inserito all&#x27;interno del codice del modello stesso. Nella maggior parte dei casi, quest&#x27;ultimo include già i tag &lt;html&gt;, &lt;head&gt; e &lt;body&gt;. È quindi piuttosto raro trovare questi tag in una vista elementare.</p>
 <ol start="7">
-  <li>Possiamo procedere a testare i vari modelli di risposta e le viste di base
+  <li>È possibile procedere al test dei diversi modelli di risposta e delle viste elementari
   </li>
 </ol>
 
 <ul>
-  <li>Ogni modello di risposta viene testato. Se un modello si chiama <b>modele1.php</b>, richiederemo l&#x27;URL<b> http://localhost/chemin/modele1.php </b>utilizzando un browser. Il modello si aspetta valori dal controller. In questo caso, lo chiamiamo direttamente anziché tramite il controller. Il modello non riceverà i parametri previsti. Per consentire comunque il test, inizializzeremo manualmente i parametri previsti nella pagina PHP del modello utilizzando delle costanti.
+  <li>Ogni modello di risposta viene testato. Se un modello si chiama <b>modele1.php</b>, si richiederà tramite un browser l’URL<b> http://localhost/chemin/modele1.php </b>Il modello attende i valori dal controller. In questo caso lo si chiama direttamente e non tramite il controller. Il modello non riceverà i parametri previsti. Affinché i test siano comunque possibili, si inizializzeranno autonomamente, con delle costanti, i parametri previsti nella pagina PHP del modello.
   </li>
-  <li>Ogni modello viene testato, così come tutte le viste di base. Questo è anche il momento di sviluppare i primi elementi dei fogli di stile utilizzati.
+  <li>Ogni modello viene testato insieme a tutte le viste elementari. È anche il momento di elaborare i primi elementi dei fogli di stile utilizzati.
   </li>
 </ul>
 
 <ol start="8">
-  <li>Successivamente, scriviamo la logica dell&#x27;applicazione:
+  <li>Si procede quindi alla scrittura della logica applicativa dell’applicazione:
   </li>
 </ol>
 <ul>
-  <li>Il controller, o programma principale, gestisce generalmente diverse azioni. L&#x27;azione da eseguire deve essere definita nelle richieste che riceve. Ciò può essere fatto utilizzando un parametro di richiesta, che qui chiameremo `<b>action</b>`:
+  <li>Il controller, o programma principale, gestisce in genere diverse azioni. È necessario che nelle richieste che gli pervengono sia definita l’azione da eseguire. Ciò può avvenire tramite un parametro della richiesta che qui chiameremo <b>«azione</b>»:
     <ul>
       <li>se la richiesta proviene da un modulo (&lt;form&gt;), questo parametro può essere un parametro nascosto del modulo: 
       </li>
@@ -597,7 +604,7 @@
 <ul>
   <li>(continua)
     <ul>
-      <li>Se la richiesta proviene da un link, è possibile configurarla come segue:
+      <li>se la richiesta proviene da un link, è possibile configurarlo:
       </li>
     </ul>
   </li>
@@ -605,14 +612,14 @@
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a> <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/C/main.php?action=uneAction&quot;</span><span class="p">&gt;</span>lien<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>Il controller può iniziare leggendo il valore di questo parametro e poi delegare l&#x27;elaborazione della richiesta a un modulo incaricato di gestire questo tipo di richiesta. In questo caso, abbiamo ipotizzato che tutto sia gestito da un unico script chiamato <strong>main.php</strong>. Se l&#x27;applicazione deve gestire le azioni <strong>action1</strong>, <strong>action2</strong>, ..., <strong>actionx</strong>, è possibile creare una funzione per ciascuna azione all&#x27;interno del controller. Se le azioni sono molte, ciò può portare a un controller &quot;dinosaurio&quot;. In alternativa, è possibile creare script <strong>action1.php</strong>, <strong>action2.php</strong>, ..., <strong>actionx.php</strong> responsabili della gestione di ciascuna azione. Il controller incaricato di gestire l&#x27;azione <strong>actionx</strong> caricherà semplicemente il codice dallo script corrispondente utilizzando un&#x27;istruzione come <strong>include &quot;actionx.php&quot;</strong>. Il vantaggio di questo metodo è che si lavora al di fuori del codice del controller. Ogni membro del team di sviluppo può quindi lavorare sullo script che gestisce un&#x27;azione <strong>actionx</strong> in modo relativamente indipendente. Includere il codice <strong>dallo</strong> script <strong>actionx.php</strong> nel codice del controller in fase di esecuzione ha anche il vantaggio di ridurre la quantità di codice caricato in memoria. Viene caricato solo il codice per la gestione dell&#x27;azione corrente. Questa inclusione di codice implica che le variabili del controller potrebbero entrare in conflitto con quelle presenti nello script dell&#x27;azione. Vedremo che è possibile limitare le variabili del controller a poche ben definite, che dovrebbero quindi essere evitate negli script.</p>
+<p>Il controller può iniziare leggendo il valore di questo parametro e poi delegare l&#x27;elaborazione della richiesta a un modulo incaricato di gestire questo tipo di richiesta. In questo caso abbiamo ipotizzato che tutto fosse controllato da un unico script denominato <strong>main.php</strong>. Se l&#x27;applicazione deve gestire azioni <strong>action1</strong>, <strong>action2</strong>, ..., <strong>actionx</strong>, è possibile creare all’interno del controller una funzione per ciascuna azione. Se le azioni sono numerose, si rischia di ottenere un controller “dinosaurio”. È anche possibile creare script <strong>action1.php</strong>, <strong>action2.php</strong>, ...,<strong>actionx.php</strong> incaricati di gestire ciascuna delle azioni. Il controller che deve gestire l’azione <strong>actionx</strong> si limiterà a caricare il codice dello script corrispondente tramite un’istruzione del tipo <strong>include &quot;actionx.php&quot;</strong>. Il vantaggio di questo metodo è che si lavora al di fuori del codice del controller. Ogni membro del team di sviluppo può così lavorare sullo script di elaborazione di un&#x27;azione <strong>actionx</strong> in modo relativamente indipendente. L&#x27;inclusione del codice dello script <strong>actionx.php</strong> nel codice del controller al momento dell&#x27;esecuzione presenta inoltre il vantaggio di alleggerire il codice caricato in memoria. Viene caricato solo il codice di elaborazione dell’azione in corso. Questa inclusione di codice fa sì che le variabili del controller possano entrare in conflitto con quelle dello script dell’azione. Vedremo che è possibile limitare le variabili del controller a poche variabili ben definite, che dovranno quindi essere evitate negli script.</p>
 <ul>
-  <li>Cercheremo sistematicamente di isolare la logica di business o il codice per l&#x27;accesso ai dati persistenti in moduli separati. Il controller agisce come una sorta di caposquadra che riceve le richieste dai propri clienti (client web) e le fa eseguire dalle entità più appropriate (i moduli di business). Durante la scrittura del controller, determineremo l&#x27;interfaccia dei moduli di business da scrivere. Ciò vale se questi moduli di business devono essere realizzati. Se esistono già, il controller si adatterà all&#x27;interfaccia di questi moduli esistenti.
+  <li>Si cercherà sistematicamente di isolare il codice di business o il codice di accesso ai dati persistenti in moduli distinti. Il controller è una sorta di caposquadra che riceve le richieste dai propri clienti (utenti web) e le fa eseguire dalle persone più adatte (i moduli di business). Durante la scrittura del controller, si determinerà l’interfaccia dei moduli di business da realizzare. Ciò vale nel caso in cui tali moduli debbano essere sviluppati. Se invece esistono già, il controller si adatterà all’interfaccia di tali moduli esistenti.
   </li>
 </ul>
 
-<ol>
-  <li>Scriveremo lo scheletro dei moduli di business richiesti dal controller. Ad esempio, se il controller utilizza un modulo<b> `getCodes` </b>che restituisce un array di stringhe, inizialmente possiamo semplicemente scrivere:
+<ol start="4">
+  <li>Si scriverà lo scheletro dei moduli di business necessari al controller. Ad esempio, se quest’ultimo utilizza un modulo <b>getCodes </b>che restituisce un array di stringhe, in una prima fase ci si può limitare a scrivere:
   </li>
 </ol>
 
@@ -621,19 +628,19 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
 </code></pre></div>
 <ol start="10">
-  <li>Possiamo quindi passare al test del controller e degli script PHP associati:
+  <li>A questo punto si può passare ai test del controller e degli script PHP associati:
   </li>
 </ol>
 
 <ul>
-  <li>il controller, gli script di azione, i modelli, le viste e le risorse richieste dall&#x27;applicazione (immagini, ecc.) vengono collocati nella cartella <b>DC </b>associata al contesto <b>C</b> dell&#x27;applicazione. 
+  <li>il controller, gli script delle azioni, i modelli, le viste e le risorse necessarie all’applicazione (immagini, ecc.) vengono collocati nella cartella <b>DC </b>associata al contesto <b>C </b>dell’applicazione. 
   </li>
-  <li>Una volta fatto ciò, l’applicazione viene testata e gli errori iniziali vengono corretti. Se <b>main.php </b>è il controller e <b>C </b>è il contesto dell’applicazione, richiederemo l’URL<b> http://localhost/C/main.php</b>. Al termine di questa fase, l’architettura dell’applicazione è operativa. Questa fase di test può essere impegnativa, dato che sono disponibili pochi strumenti di debug se non si utilizzano ambienti di sviluppo avanzati, che sono generalmente a pagamento. È possibile utilizzare le istruzioni<b> echo </b><b>&quot;message&quot;</b>, che scrivono nel flusso HTML inviato al client e quindi appaiono sulla pagina web visualizzata dal browser.
+  <li>Fatto ciò, l’applicazione viene testata e vengono corretti i primi errori. Se <b>main.php </b>è il controller e <b>C </b>il contesto dell’applicazione, si richiederà l’URL<b> http://localhost/C/main.php</b>. Al termine di questa fase, l’architettura dell’applicazione è operativa. Questa fase di test può risultare complessa, dato che si dispone di pochi strumenti di debug se non si utilizzano ambienti di sviluppo avanzati e, in genere, a pagamento. È possibile avvalersi delle istruzioni <b>echo &quot;messaggio&quot; </b>che scrivono nel flusso HTML inviato al client e che compaiono quindi nella pagina web visualizzata dal browser.
   </li>
 </ul>
 
 <ol>
-  <li>Infine, scriviamo le classi di business richieste dal controller. Ciò comporta tipicamente lo sviluppo standard di una classe PHP, che di solito è indipendente da qualsiasi applicazione web. Verrà prima testata al di fuori di questo ambiente, utilizzando ad esempio un&#x27;applicazione console. Una volta scritta una classe di business, la integriamo nell&#x27;architettura di distribuzione dell&#x27;applicazione web e ne verifichiamo la corretta integrazione. Procediamo in questo modo per ogni classe di business.
+  <li>Infine, si scrivono le classi di business necessarie al controller. In questo caso si tratta in genere dello sviluppo classico di una classe PHP, il più delle volte indipendente da qualsiasi applicazione web. Essa verrà innanzitutto testata al di fuori di tale ambiente, ad esempio con un’applicazione da console. Una volta scritta una classe di business, la si integra nell’architettura di distribuzione dell’applicazione web e se ne verifica la corretta integrazione. Si procederà in questo modo per ogni classe di business.
   </li>
 </ol>
 

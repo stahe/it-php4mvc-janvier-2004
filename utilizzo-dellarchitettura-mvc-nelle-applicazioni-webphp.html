@@ -18,7 +18,7 @@
         <link rel="prev" href="index.html">
       
       
-        <link rel="next" href="un-approccio-di-sviluppo-mvc-per-webphp.html">
+        <link rel="next" href="un-approccio-allo-sviluppo-mvc-in-webphp.html">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>1. Utilizzo dell'architettura MVC nelle applicazioni web/PHP - Metodologia di sviluppo MVC per un'applicazione web PHP4</title>
+        <title>1. Utilizzo dell’architettura MVC nelle applicazioni web/PHP - Metodologia di sviluppo MVC per un'applicazione web PHP4</title>
       
     
     
@@ -56,6 +56,8 @@
     
     
       <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -128,7 +130,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              1. Utilizzo dell'architettura MVC nelle applicazioni web/PHP
+              1. Utilizzo dell’architettura MVC nelle applicazioni web/PHP
             
           </span>
         </div>
@@ -319,7 +321,7 @@
   <span class="md-ellipsis">
     
   
-    1. Utilizzo dell'architettura MVC nelle applicazioni web/PHP
+    1. Utilizzo dell’architettura MVC nelle applicazioni web/PHP
   
 
     
@@ -340,14 +342,14 @@
   
   
     <li class="md-nav__item">
-      <a href="un-approccio-di-sviluppo-mvc-per-webphp.html" class="md-nav__link">
+      <a href="un-approccio-allo-sviluppo-mvc-in-webphp.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2. Un approccio di sviluppo MVC per Web/PHP
+    2. Un approccio allo sviluppo MVC in web/PHP
   
 
     
@@ -394,14 +396,14 @@
   
   
     <li class="md-nav__item">
-      <a href="unapplicazione-illustrativa.html" class="md-nav__link">
+      <a href="unapplicazione-esemplificativa.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4. Un'applicazione illustrativa
+    4. Un'applicazione esemplificativa
   
 
     
@@ -431,38 +433,52 @@
 
 
 
-<p><a id="refheading29946107341754"></a></p>
-<h1 id="1-utilizzo-dellarchitettura-mvc-nelle-applicazioni-webphp">1. <span style="color: #365f91">Utilizzo dell&#x27;architettura MVC nelle applicazioni web/PHP</span></h1>
-<p>Il PDF del documento è disponibile |<a href="https://1drv.ms/b/c/f53a919f43d27eb5/IQCP-6HCyHVJTYM3rR9w0tAnAfPmvttW1NoJSf2tjj5xfFI?e=zmuTpm">QUI</a>|.</p>
-<p>Il codice del documento è disponibile |<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQDgz1c4n6lMQ4WX_YSZCzLsAYqKTSV5K2jUvNmleRC5GWo?e=jPfd4i">QUI</a>|.</p>
-<p>Il modello MVC (Model-View-Controller) mira a separare chiaramente i livelli di presentazione, elaborazione e accesso ai dati. Un&#x27;applicazione web che segue questo modello sarà strutturata come segue:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/1000000000000400000000BB4D654A99.png" width="512" height="94" style="display:inline-block; margin:4px;width:13.547cm;height:2.475cm;" class="odt-zoomable" data-zoom-src="images/1000000000000400000000BB4D654A99.png" /></td></tr></table>
+<p><span id="refheading29946107341754" name="refheading29946107341754" class="odt-bookmark-anchor"></span></p>
+<h1 id="1-utilizzo-dellarchitettura-mvc-nelle-applicazioni-webphp">1. <span style="color: #365f91">Utilizzo dell’architettura MVC nelle applicazioni web/PHP</span></h1>
+<p>Il codice PDF del documento è disponibile |<a href="https://1drv.ms/b/c/f53a919f43d27eb5/IQCP-6HCyHVJTYM3rR9w0tAnAfPmvttW1NoJSf2tjj5xfFI?e=escPQE">QUI</a>|.</p>
+<p>I codici del documento sono disponibili |<a href="https://1drv.ms/u/c/f53a919f43d27eb5/IQDgz1c4n6lMQ4WX_YSZCzLsAYqKTSV5K2jUvNmleRC5GWo?e=uH6Uph">QUI</a>|.</p>
+<p>Il modello MVC (Modello-Vista-Controllore) mira a separare nettamente i livelli di presentazione, elaborazione e accesso ai dati. Un’applicazione web che rispetta questo modello sarà strutturata nel modo seguente:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/1000000000000400000000BB4D654A99.png" width="512" height="94" style="display:inline-block; margin:4px;width:13.547cm;height:2.475cm;" class="odt-zoomable" data-zoom-src="images/1000000000000400000000BB4D654A99.png" /></td></tr></table>
 
-<p>Tale architettura viene spesso definita architettura a 3 livelli:</p>
+<p>Tale architettura viene spesso definita architettura a 3 livelli o a 3 strati:</p>
 <ul>
-<li>l&#x27;interfaccia utente è la vista (V)</li>
-<li>la logica applicativa è il controller (C)</li>
-<li>le fonti di dati sono il modello (M)</li>
+  <li>l’interfaccia utente è la vista (V)
+  </li>
+  <li>la logica applicativa è il controller (C)
+  </li>
+  <li>le fonti di dati costituiscono il modello (M)
+  </li>
 </ul>
-<p><strong>L&#x27;interfaccia utente</strong> è spesso un browser web, ma potrebbe anche essere un&#x27;applicazione autonoma che invia richieste HTTP al servizio web attraverso la rete e formatta i risultati ricevuti. La <strong>logica applicativa</strong> consiste in script che elaborano le richieste degli utenti. <strong>La fonte di dati</strong> è spesso un database, ma può anche trattarsi di semplici file flat, una directory LDAP, un servizio web remoto, ecc. È nell&#x27;interesse dello sviluppatore mantenere un alto grado di indipendenza tra queste tre entità, in modo che se una di esse cambia, le altre due non debbano cambiare, o solo in misura minima.</p>
-<p>L&#x27;architettura MVC è particolarmente adatta alle applicazioni web scritte in linguaggi orientati agli oggetti. Il linguaggio PHP (4.x) non è orientato agli oggetti. Tuttavia, è possibile strutturare il codice e l&#x27;architettura dell&#x27;applicazione in modo da allinearli maggiormente al modello MVC:</p>
-<ul>
-<li>Collochiamo la logica di business dell&#x27;applicazione in moduli separati da quelli responsabili della gestione del dialogo richiesta-risposta. L&#x27;architettura MVC diventa la seguente:</li>
-</ul>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><img src="images/100000000000061F000001BFD28D9CBA.png" width="680" height="194" style="display:inline-block; margin:4px;width:17.999cm;height:5.135cm;" class="odt-zoomable" data-zoom-src="images/100000000000061F000001BFD28D9CBA.png" /></td></tr></table>
 
-<p>All&#x27;interno del blocco [Logica dell&#x27;applicazione], possiamo distinguere:</p>
+<p><strong>L&#x27;interfaccia utente</strong> è spesso un browser web, ma potrebbe anche essere un&#x27;applicazione autonoma che, tramite la rete, invia richieste HTTP al servizio web e formatta i risultati che quest&#x27;ultimo le invia. La <strong>logica applicativa</strong> è costituita dagli script che elaborano le richieste dell&#x27;utente. La <strong>fonte dei dati</strong> è spesso un database, ma può trattarsi anche di semplici file di testo, una directory LDAP, un servizio web remoto, ecc. È nell’interesse dello sviluppatore mantenere un’ampia indipendenza tra queste tre entità, in modo che, qualora una di esse cambi, le altre due non debbano subire modifiche o ne subiscano solo in misura minima.</p>
+<p>L’architettura MVC è particolarmente adatta alle applicazioni web scritte con linguaggi orientati agli oggetti. Il linguaggio PHP (4.x) non è orientato agli oggetti. È tuttavia possibile impegnarsi a strutturare il codice e l’architettura dell’applicazione in modo da avvicinarsi al modello MVC:</p>
 <ul>
-<li>il programma principale o controller, che funge da punto di ingresso dell’applicazione.</li>
-<li>il blocco [Azioni], un insieme di script responsabili dell&#x27;esecuzione delle azioni richieste dall&#x27;utente.</li>
-<li>il blocco [Classi di business], che raggruppa i moduli PHP necessari per la logica dell&#x27;applicazione. Questi sono indipendenti dal client. Ad esempio, la funzione che calcola un&#x27;imposta sulla base di determinate informazioni fornite come parametri non deve preoccuparsi di come tali informazioni siano state ottenute.</li>
-<li>il blocco [Data Access Classes], che contiene i moduli PHP che recuperano i dati necessari al controller, spesso dati persistenti (database, file, ecc.)</li>
-<li>i generatori di viste che inviano le viste come risposta al client. </li>
+  <li>La logica di business dell’applicazione verrà collocata in moduli separati da quelli incaricati di gestire il dialogo richiesta-risposta. L’architettura MVC diventa la seguente:
+  </li>
 </ul>
-<p>Nei casi più semplici, la logica dell&#x27;applicazione è spesso ridotta a due moduli:</p>
+
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><img src="images/100000000000061F000001BFD28D9CBA.png" width="680" height="194" style="display:inline-block; margin:4px;width:17.999cm;height:5.135cm;" class="odt-zoomable" data-zoom-src="images/100000000000061F000001BFD28D9CBA.png" /></td></tr></table>
+
+<p>Nel blocco [Logique Applicative] si potranno distinguere:</p>
 <ul>
-<li>il modulo [controllo] che gestisce la comunicazione client-server: elaborazione della richiesta, generazione di varie risposte</li>
-<li>il modulo [logica di business], che riceve i dati da elaborare dal modulo [controller] e gli fornisce i risultati in cambio. Questo modulo [logica di business] gestisce poi l&#x27;accesso ai dati persistenti.</li>
+  <li>il programma principale o controller, che costituisce il punto di accesso all’applicazione;
+  </li>
+  <li>il blocco [Actions], un insieme di script incaricati di eseguire le azioni richieste dall’utente.
+  </li>
+  <li>il blocco [Classes métier], che raggruppa i moduli PHP necessari alla logica dell’applicazione. Questi sono indipendenti dal client. Ad esempio, la funzione che consente di calcolare un’imposta a partire da determinate informazioni fornite come parametri non deve preoccuparsi di come tali informazioni siano state acquisite.
+  </li>
+  <li>il blocco [Classes d&#x27;accès aux données], che raggruppa i moduli PHP che recuperano i dati necessari al controller, spesso dati persistenti (BD, file, ...)
+  </li>
+  <li>i generatori delle viste inviate come risposta al cliente. 
+  </li>
+</ul>
+
+<p>Nei casi più semplici, la logica applicativa si riduce spesso a due moduli:</p>
+<ul>
+  <li>il modulo [contrôle] che gestisce il dialogo client-server: elaborazione della richiesta, generazione delle varie risposte
+  </li>
+  <li>il modulo [métier] che riceve dal modulo [contrôle] i dati da elaborare e gli fornisce in cambio i risultati. Questo modulo [métier] gestisce quindi autonomamente l’accesso ai dati persistenti.
+  </li>
 </ul>
 
 

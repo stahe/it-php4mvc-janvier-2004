@@ -15,10 +15,10 @@
         <link rel="canonical" href="https://stahe.github.io/it-php4mvc-janvier-2004/un-controller-generico.html">
       
       
-        <link rel="prev" href="un-approccio-di-sviluppo-mvc-per-webphp.html">
+        <link rel="prev" href="un-approccio-allo-sviluppo-mvc-in-webphp.html">
       
       
-        <link rel="next" href="unapplicazione-illustrativa.html">
+        <link rel="next" href="unapplicazione-esemplificativa.html">
       
       
         
@@ -56,6 +56,8 @@
     
     
       <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
     
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -310,7 +312,7 @@
   <span class="md-ellipsis">
     
   
-    1. Utilizzo dell'architettura MVC nelle applicazioni web/PHP
+    1. Utilizzo dell’architettura MVC nelle applicazioni web/PHP
   
 
     
@@ -330,14 +332,14 @@
   
   
     <li class="md-nav__item">
-      <a href="un-approccio-di-sviluppo-mvc-per-webphp.html" class="md-nav__link">
+      <a href="un-approccio-allo-sviluppo-mvc-in-webphp.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    2. Un approccio di sviluppo MVC per Web/PHP
+    2. Un approccio allo sviluppo MVC in web/PHP
   
 
     
@@ -439,10 +441,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#33-librerie-da-includere-nel-controller" class="md-nav__link">
+  <a href="#33-le-librerie-da-includere-nel-controller" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.3. Librerie da includere nel controller
+        3.3. Le librerie da includere nel controller
       
     </span>
   </a>
@@ -461,10 +463,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#35-invio-della-risposta-al-client" class="md-nav__link">
+  <a href="#35-linvio-della-risposta-al-cliente" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.5. Invio della risposta al client
+        3.5. L&#x27;invio della risposta al cliente
       
     </span>
   </a>
@@ -472,10 +474,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#36-esecuzione-delle-azioni" class="md-nav__link">
+  <a href="#36-lesecuzione-delle-azioni" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.6. Esecuzione delle azioni
+        3.6. L&#x27;esecuzione delle azioni
       
     </span>
   </a>
@@ -530,14 +532,14 @@
   
   
     <li class="md-nav__item">
-      <a href="unapplicazione-illustrativa.html" class="md-nav__link">
+      <a href="unapplicazione-esemplificativa.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    4. Un'applicazione illustrativa
+    4. Un'applicazione esemplificativa
   
 
     
@@ -567,49 +569,49 @@
 
 
 
-<p><a id="refheading29950107341754"></a></p>
+<p><span id="refheading29950107341754" name="refheading29950107341754" class="odt-bookmark-anchor"></span></p>
 <h1 id="3-un-controller-generico">3. <span style="color: #365f91">Un controller generico</span></h1>
-<p><a id="refheading29952107341754"></a></p>
+<p><span id="refheading29952107341754" name="refheading29952107341754" class="odt-bookmark-anchor"></span></p>
 <h2 id="31-introduzione">3.1. <span style="color: #4f81bd">Introduzione</span></h2>
-<p>Nel metodo precedente, era chiaro che dovevamo scrivere il controller denominato <strong>main.php</strong>. Con un po&#x27; di esperienza, ci rendiamo conto che questo controller spesso fa le stesse cose, ed è quindi allettante scrivere un controller generico che possa essere utilizzato nella maggior parte delle applicazioni web. Il codice per questo controller potrebbe essere il seguente:</p>
+<p>Nel metodo precedente, era sottinteso che dovessimo scrivere il controller denominato <strong>main.php</strong>. Con un po’ di esperienza, ci si rende conto che questo controller svolge spesso le stesse operazioni ed è quindi allettante scrivere un controller generico utilizzabile nella maggior parte delle applicazioni web. Il codice di questo controller potrebbe essere il seguente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>     <span class="c1">// generic controller</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>     <span class="c1">// controller generico</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   <span class="c1">// configurable reading</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  <span class="c1">// lettura della configurazione</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  <span class="k">include</span> <span class="s1">&#39;config.php&#39;</span><span class="p">;</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>   <span class="c1">// including libraries</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="c1">// inclusione di librerie</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;includes&#39;</span><span class="p">]);</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>      <span class="k">include</span><span class="p">(</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;includes&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">]);</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  <span class="p">}</span><span class="c1">//for  </span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>   <span class="c1">// start or resume session</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  <span class="c1">// si avvia o si riprende la sessione</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>  <span class="nb">session_start</span><span class="p">();</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>  <span class="nv">$dSession</span><span class="o">=</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">];</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>  <span class="k">if</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">)</span> <span class="nv">$dSession</span><span class="o">=</span><span class="nb">unserialize</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">);</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>   <span class="c1">// retrieve the action to be taken</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>  <span class="c1">// si recupera l&#39;azione da intraprendere</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>  <span class="nv">$sAction</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">?</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;init&#39;</span><span class="p">;</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>  <span class="nv">$sAction</span><span class="o">=</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">])</span><span class="o">.</span><span class="s2">&quot;:</span><span class="si">$sAction</span><span class="s2">&quot;</span><span class="p">;</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>     <span class="c1">// is the sequence of actions normal?</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>     <span class="c1">// la sequenza delle azioni è normale?</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>  <span class="k">if</span><span class="p">(</span> <span class="o">!</span> <span class="nx">enchainementOK</span><span class="p">(</span><span class="nv">$dConfig</span><span class="p">,</span><span class="nv">$dSession</span><span class="p">,</span><span class="nv">$sAction</span><span class="p">)){</span>  
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>     <span class="c1">// abnormal sequence</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="c1">// sequenza anomala</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    <span class="nv">$sAction</span><span class="o">=</span><span class="s1">&#39;enchainementinvalide&#39;</span><span class="p">;</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>  <span class="p">}</span><span class="c1">//if</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>     <span class="c1">// share processing</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>     <span class="c1">// elaborazione dell&#39;azione</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>  <span class="nv">$scriptAction</span><span class="o">=</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="nv">$sAction</span><span class="p">]</span> <span class="o">?</span> 
 <a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="nv">$sAction</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">:</span> 
 <a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;actionInvalide&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>  <span class="k">include</span> <span class="nv">$scriptAction</span><span class="p">;</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>   <span class="c1">// send response(view) to customer</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>  <span class="c1">// invio della risposta (vista) al cliente</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>  <span class="nv">$sEtat</span><span class="o">=</span><span class="nv">$dSession</span><span class="p">[</span><span class="s1">&#39;etat&#39;</span><span class="p">][</span><span class="s1">&#39;principal&#39;</span><span class="p">];</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>  <span class="nv">$scriptVue</span><span class="o">=</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;etats&#39;</span><span class="p">][</span><span class="nv">$sEtat</span><span class="p">][</span><span class="s1">&#39;vue&#39;</span><span class="p">];</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>  <span class="k">include</span> <span class="nv">$scriptVue</span><span class="p">;</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>   <span class="c1">// end of script - we shouldn&#39;t get there unless there&#39;s a bug</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>  <span class="c1">// fine dello script - non si dovrebbe arrivare a questo punto, a meno che non ci sia un bug</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>  <span class="nx">trace</span> <span class="p">(</span><span class="s2">&quot;Erreur de configuration.&quot;</span><span class="p">);</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>  <span class="nx">trace</span><span class="p">(</span><span class="s2">&quot;Action=[</span><span class="si">$sAction</span><span class="s2">]&quot;</span><span class="p">);</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>  <span class="nx">trace</span><span class="p">(</span><span class="s2">&quot;scriptAction=[</span><span class="si">$scriptAction</span><span class="s2">]&quot;</span><span class="p">);</span>
@@ -620,36 +622,36 @@
 <a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>
 <a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>  <span class="c1">// ---------------------------------------------------------------</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>  <span class="k">function</span> <span class="nf">finSession</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$dConfig</span><span class="p">,</span><span class="o">&amp;</span><span class="nv">$dReponse</span><span class="p">,</span><span class="o">&amp;</span><span class="nv">$dSession</span><span class="p">){</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>     <span class="c1">// $dConfig: configuration dictionary</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>       <span class="c1">// $dSession: dictionary containing session info</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>         <span class="c1">// $dReponse: the dictionary of arguments for the response page</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>    <span class="c1">// $dConfig: dizionario di configurazione</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>      <span class="c1">// $dSession: dizionario contenente le informazioni di sessione</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>         <span class="c1">// $dReponse: il dizionario degli argomenti della pagina di risposta</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>     <span class="c1">// session registration</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>    <span class="c1">// registrazione della sessione</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">)){</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>      <span class="c1">// put the query parameters in the session</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>      <span class="c1">//: inserimento dei parametri della richiesta nella sessione</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>      <span class="nv">$dSession</span><span class="p">[</span><span class="s1">&#39;requete&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;get&#39;</span> <span class="o">?</span> <span class="nv">$_GET</span> <span class="o">:</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>          <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;post&#39;</span> <span class="o">?</span> <span class="nv">$_POST</span> <span class="o">:</span> <span class="k">array</span><span class="p">();</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>        <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">);</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>      <span class="nb">session_write_close</span><span class="p">();</span>
 <a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>    
-<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>         <span class="c1">// no session</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>        <span class="c1">// nessuna sessione</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>      <span class="nb">session_destroy</span><span class="p">();</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>    <span class="p">}</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>         <span class="c1">// we present the answer</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>         <span class="c1">// visualizzazione della risposta</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>        <span class="k">include</span> <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;vuesReponse&#39;</span><span class="p">][</span><span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;vuereponse&#39;</span><span class="p">]][</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>     <span class="c1">// end of script</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>    <span class="c1">// fine dello script</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>  <span class="p">}</span><span class="c1">//endsession      </span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>  <span class="p">}</span><span class="c1">//fine sessione      </span>
 <a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>
 <a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>  <span class="c1">//--------------------------------------------------------------------</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>    <span class="k">function</span> <span class="nf">enchainementOK</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$dConfig</span><span class="p">,</span><span class="o">&amp;</span><span class="nv">$dSession</span><span class="p">,</span><span class="nv">$sAction</span><span class="p">){</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>       <span class="c1">// checks whether the current action is authorized with respect to the previous state</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>      <span class="c1">// verifica se l&#39;azione corrente è autorizzata rispetto allo stato precedente</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a>    <span class="nv">$etat</span><span class="o">=</span><span class="nv">$dSession</span><span class="p">[</span><span class="s1">&#39;etat&#39;</span><span class="p">][</span><span class="s1">&#39;principal&#39;</span><span class="p">];</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>    <span class="k">if</span><span class="p">(</span><span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$etat</span><span class="p">))</span> <span class="nv">$etat</span><span class="o">=</span><span class="s1">&#39;sansetat&#39;</span><span class="p">;</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>     <span class="c1">// check action</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>    <span class="c1">// verifica dell&#39;azione</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>    <span class="nv">$actionsautorisees</span><span class="o">=</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;etats&#39;</span><span class="p">][</span><span class="nv">$etat</span><span class="p">][</span><span class="s1">&#39;actionsautorisees&#39;</span><span class="p">];</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a>    <span class="nv">$autorise</span><span class="o">=</span> <span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$actionsautorisees</span><span class="p">)</span> <span class="o">||</span> <span class="nb">in_array</span><span class="p">(</span><span class="nv">$sAction</span><span class="p">,</span><span class="nv">$actionsautorisees</span><span class="p">);</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a>        <span class="k">return</span> <span class="nv">$autorise</span><span class="p">;</span>    
@@ -657,101 +659,101 @@
 <a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a>
 <a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>  <span class="c1">//--------------------------------------------------------------------</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>  <span class="k">function</span> <span class="nf">dump</span><span class="p">(</span><span class="nv">$dInfos</span><span class="p">){</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>       <span class="c1">// displays an information dictionary</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>      <span class="c1">// visualizza un dizionario di informazioni</span>
 <a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a>    <span class="k">while</span><span class="p">(</span><span class="k">list</span><span class="p">(</span><span class="nv">$clé</span><span class="p">,</span><span class="nv">$valeur</span><span class="p">)</span><span class="o">=</span><span class="nb">each</span><span class="p">(</span><span class="nv">$dInfos</span><span class="p">)){</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>        <span class="k">echo</span> <span class="s2">&quot;[</span><span class="si">$clé</span><span class="s2">,</span><span class="si">$valeur</span><span class="s2">]&lt;br&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
 <a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a>    <span class="p">}</span><span class="c1">//while</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>  <span class="p">}</span><span class="c1">//follow-up</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>  <span class="p">}</span><span class="c1">//monitoraggio</span>
 <a id="__codelineno-0-91" name="__codelineno-0-91" href="#__codelineno-0-91"></a>
 <a id="__codelineno-0-92" name="__codelineno-0-92" href="#__codelineno-0-92"></a>  <span class="c1">//--------------------------------------------------------------------</span>
 <a id="__codelineno-0-93" name="__codelineno-0-93" href="#__codelineno-0-93"></a>  <span class="k">function</span> <span class="nf">trace</span><span class="p">(</span><span class="nv">$msg</span><span class="p">){</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94" href="#__codelineno-0-94"></a>      <span class="k">echo</span> <span class="nv">$msg</span><span class="o">.</span><span class="s2">&quot;&lt;br&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a>  <span class="p">}</span><span class="c1">//follow-up</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95" href="#__codelineno-0-95"></a>  <span class="p">}</span><span class="c1">//monitoraggio</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96" href="#__codelineno-0-96"></a>
 <a id="__codelineno-0-97" name="__codelineno-0-97" href="#__codelineno-0-97"></a><span class="cp">?&gt;</span>
 </code></pre></div>
-<p><a id="refheading29954107341754"></a></p>
+<p><span id="refheading29954107341754" name="refheading29954107341754" class="odt-bookmark-anchor"></span></p>
 <h2 id="32-il-file-di-configurazione-dellapplicazione">3.2. <span style="color: #4f81bd">Il file di configurazione dell&#x27;applicazione</span></h2>
-<p>L&#x27;applicazione è configurata in uno script che deve essere denominato <strong>config.php</strong>. Le impostazioni dell&#x27;applicazione sono memorizzate in un dizionario chiamato <strong>$dConfig</strong>, utilizzato dal controller, dagli script di azione, dai modelli e dalle viste di base.</p>
-<p><a id="refheading29956107341754"></a></p>
-<h2 id="33-librerie-da-includere-nel-controller">3.3. <span style="color: #4f81bd">Librerie da includere nel controller</span></h2>
-<p>Le librerie da includere nel codice del controller sono collocate nell&#x27;array <strong>$dConfig[&#x27;includes&#x27;]</strong>. Il controller le include con il seguente frammento di codice:</p>
+<p>L&#x27;applicazione è configurata in uno script che deve necessariamente avere il nome <strong>config.php</strong>. I parametri dell&#x27;applicazione sono inseriti in un dizionario denominato $dConfig, utilizzato sia dal controller che dagli script di azione, dai modelli e dalle viste elementari.</p>
+<p><span id="refheading29956107341754" name="refheading29956107341754" class="odt-bookmark-anchor"></span></p>
+<h2 id="33-le-librerie-da-includere-nel-controller">3.3. <span style="color: #4f81bd">Le librerie da includere nel controller</span></h2>
+<p>Le librerie da includere nel codice del controller sono riportate nella tabella <strong>$dConfig[&#x27;includes&#x27;]</strong>. Il controller le include con la seguente sequenza di codice:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">...</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   <span class="c1">// configurable reading</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  <span class="c1">// lettura configurazione</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  <span class="k">include</span> <span class="s2">&quot;config.php&quot;</span><span class="p">;</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>   <span class="c1">// including libraries</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  <span class="c1">// inclusione di librerie</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;includes&#39;</span><span class="p">]);</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      <span class="k">include</span><span class="p">(</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;includes&#39;</span><span class="p">][</span><span class="nv">$i</span><span class="p">]);</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  <span class="p">}</span><span class="c1">//for  </span>
 </code></pre></div>
-<p><a id="refheading29958107341754"></a></p>
+<p><span id="refheading29958107341754" name="refheading29958107341754" class="odt-bookmark-anchor"></span></p>
 <h2 id="34-gestione-delle-sessioni">3.4. <span style="color: #4f81bd">Gestione delle sessioni</span></h2>
-<p>Il controller generico gestisce automaticamente una sessione. Salva e recupera il contenuto della sessione tramite il dizionario <strong>$dSession</strong>. Questo dizionario può contenere oggetti che devono essere serializzati per poter essere recuperati correttamente in seguito. La chiave associata a questo dizionario è <strong>&#x27;session</strong>&#x27;. Pertanto, il recupero di una sessione viene effettuato con il seguente codice:</p>
+<p>Il controller generico gestisce automaticamente una sessione. Salva e recupera il contenuto di una sessione tramite il dizionario <strong>$dSession</strong>. Questo dizionario può contenere oggetti che devono essere serializzati per poter essere recuperati correttamente in seguito. La chiave associata a questo dizionario è <strong>&#x27;session</strong>&#x27;. Pertanto, il recupero di una sessione avviene con il seguente codice:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nx">…</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>   <span class="c1">// start or resume session</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  <span class="c1">// avvio o ripresa della sessione</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  <span class="nb">session_start</span><span class="p">();</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  <span class="nv">$dSession</span><span class="o">=</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">&quot;session&quot;</span><span class="p">];</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  <span class="k">if</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">)</span> <span class="nv">$dSession</span><span class="o">=</span><span class="nb">unserialize</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">);</span>
 </code></pre></div>
-<p>Se un&#x27;azione deve memorizzare informazioni nella sessione, aggiungerà chiavi e valori al dizionario <strong>$dSession</strong>. Poiché tutte le azioni condividono la stessa sessione, esiste il rischio di conflitti tra le chiavi di sessione se l&#x27;applicazione viene sviluppata in modo indipendente da più persone. Questa è una sfida. Dobbiamo sviluppare un repository che elenchi le chiavi di sessione, un repository condiviso da tutti. Vedremo che ogni azione termina con una chiamata alla seguente funzione <strong>finSession</strong>:</p>
+<p>Se un&#x27;azione desidera memorizzare informazioni nella sessione, aggiungerà chiavi e valori nel dizionario <strong>$dSession</strong>. Poiché tutte le azioni condividono la stessa sessione, esiste il rischio di conflitti tra le chiavi di sessione se l&#x27;applicazione viene sviluppata in modo indipendente da più persone. Si tratta di una difficoltà. È necessario sviluppare un repository che elenchi le chiavi di sessione, un repository condiviso da tutti. Vedremo che ogni azione termina con la chiamata alla seguente funzione <strong>finSession</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">...</span> 
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a> <span class="c1">// ---------------------------------------------------------------</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  <span class="k">function</span> <span class="nf">finSession</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$dConfig</span><span class="p">,</span><span class="o">&amp;</span><span class="nv">$dReponse</span><span class="p">,</span><span class="o">&amp;</span><span class="nv">$dSession</span><span class="p">){</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>     <span class="c1">// $dConfig: configuration dictionary</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>       <span class="c1">// $dSession: dictionary containing session information</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>         <span class="c1">// $dReponse: the dictionary of arguments for the response page</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="c1">// $dConfig: dizionario di configurazione</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>      <span class="c1">// $dSession: dizionario contenente le informazioni di sessione</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>         <span class="c1">// $dReponse: il dizionario degli argomenti della pagina di risposta</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>     <span class="c1">// session registration</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="c1">// registrazione della sessione</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">)){</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>      <span class="c1">// put the query parameters in the session</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>      <span class="c1">//: inserimento dei parametri della richiesta nella sessione</span>
 <a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>      <span class="nv">$dSession</span><span class="p">[</span><span class="s1">&#39;requete&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;get&#39;</span> <span class="o">?</span> <span class="nv">$_GET</span> <span class="o">:</span>
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>          <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;post&#39;</span> <span class="o">?</span> <span class="nv">$_POST</span> <span class="o">:</span> <span class="k">array</span><span class="p">();</span>
 <a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>        <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$dSession</span><span class="p">);</span>
 <a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>      <span class="nb">session_write_close</span><span class="p">();</span>
 <a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>    
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>         <span class="c1">// no session</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="c1">// nessuna sessione</span>
 <a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>      <span class="nb">session_destroy</span><span class="p">();</span>
 <a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="p">}</span>
 <a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>         <span class="c1">// we present the answer</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>         <span class="c1">// visualizzazione della risposta</span>
 <a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="k">include</span> <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;vuesReponse&#39;</span><span class="p">][</span><span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;vuereponse&#39;</span><span class="p">]][</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
 <a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>     <span class="c1">// end of script</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="c1">// fine dello script</span>
 <a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="k">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>  <span class="p">}</span><span class="c1">//endsession      </span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>  <span class="p">}</span><span class="c1">//fine sessione      </span>
 </code></pre></div>
-<p>Un&#x27;azione può decidere di non continuare una sessione. Per farlo, è sufficiente non passare alcun valore al parametro <strong>$dSession</strong> della funzione <strong>endSession</strong>; in tal caso, la sessione viene distrutta (session_destroy). Se il dizionario <strong>$dSession</strong> esiste, viene salvato nella sessione, che viene poi scritta (session_write_close). L&#x27;azione corrente può quindi memorizzare elementi nella sessione aggiungendoli al dizionario <strong>$dSession</strong>. Si noti che il controller memorizza automaticamente i parametri della richiesta corrente nella sessione. Ciò consente di recuperarli se necessario per elaborare la richiesta successiva.</p>
-<p><a id="refheading29960107341754"></a></p>
-<h2 id="35-invio-della-risposta-al-client">3.5. <span style="color: #4f81bd">Invio della risposta al client</span></h2>
-<p>Lo scopo finale della funzione <strong>finSession</strong> è quello di inviare una risposta all&#x27;utente. Abbiamo accennato al fatto che una risposta può avere diversi modelli di pagina. Questi sono configurati in <strong>$dConfig[&#x27;vuesReponse&#x27;]</strong>. In un&#x27;applicazione a due modelli, potremmo avere:</p>
+<p>Un&#x27;azione può decidere di non proseguire una sessione. A tal fine è sufficiente non passare alcun valore al parametro <strong>$dSession</strong> della funzione <strong>finSession</strong>; in tal caso la sessione viene eliminata (session_destroy). Se il dizionario <strong>$dSession</strong> esiste, viene salvato nella sessione, che viene poi registrata (session_write_close). L&#x27;azione in corso può quindi memorizzare elementi nella sessione aggiungendo voci al dizionario <strong>$dSession</strong>. Si noti che il controller memorizza automaticamente i parametri della richiesta corrente nella sessione. Ciò consentirà di recuperarli, se necessario, per elaborare la richiesta successiva.</p>
+<p><span id="refheading29960107341754" name="refheading29960107341754" class="odt-bookmark-anchor"></span></p>
+<h2 id="35-linvio-della-risposta-al-cliente">3.5. <span style="color: #4f81bd">L&#x27;invio della risposta al cliente</span></h2>
+<p>Lo scopo finale della funzione <strong>finSession</strong> è quello di inviare una risposta all’utente. Abbiamo detto che una risposta può avere diversi modelli di pagina. Questi vengono impostati tramite configurazione in <strong>$dConfig[&#x27;vuesReponse&#x27;]</strong>. In un’applicazione con due modelli, si potrebbero quindi avere:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nx">…</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;vuesReponse&#39;</span><span class="p">][</span><span class="s1">&#39;modele1&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;m-modele1.php&#39;</span><span class="p">);</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;vuesReponse&#39;</span><span class="p">][</span><span class="s1">&#39;modele2&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;m-modele2.php&#39;</span><span class="p">);</span>
 </code></pre></div>
-<p>L&#x27;azione corrente specifica il modello desiderato in <strong>$dResponse[&#x27;responseView&#x27;]</strong>. Il controller lo visualizza utilizzando la seguente istruzione:</p>
+<p>L&#x27;azione in corso specifica in <strong>$dReponse[&#x27;vuereponse&#x27;]</strong> il modello desiderato. Questo viene visualizzato dal controller tramite l&#x27;istruzione:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nx">…</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>         <span class="c1">// we present the answer</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>         <span class="c1">// si visualizza la risposta</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="k">include</span> <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;vuesReponse&#39;</span><span class="p">][</span><span class="nv">$dReponse</span><span class="p">[</span><span class="s1">&#39;vuereponse&#39;</span><span class="p">]][</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
 </code></pre></div>
-<p>Una volta inviata questa risposta al client, il controller si arresta (exit).</p>
-<p><a id="refheading29962107341754"></a></p>
-<h2 id="36-esecuzione-delle-azioni">3.6. <span style="color: #4f81bd">Esecuzione delle azioni</span></h2>
-<p>Il controller attende richieste con un parametro <strong>action=XX</strong>. Se questo parametro non esiste nella richiesta e la richiesta è di tipo GET, l&#x27;azione assume il valore <strong>&#x27;init</strong>&#x27;. Questo è il caso della primissima richiesta effettuata al controller, che ha la forma <strong>http://machine:port/chemin/main.php</strong>.</p>
+<p>Una volta inviata questa risposta al client, il controller termina l&#x27;esecuzione (exit).</p>
+<p><span id="refheading29962107341754" name="refheading29962107341754" class="odt-bookmark-anchor"></span></p>
+<h2 id="36-lesecuzione-delle-azioni">3.6. <span style="color: #4f81bd">L&#x27;esecuzione delle azioni</span></h2>
+<p>Il controller attende richieste contenenti il parametro <strong>action=XX</strong>. Se tale parametro non è presente nella richiesta e questa è di tipo GET, l&#x27;azione assume il valore <strong>&#x27;init</strong>&#x27;. È il caso della primissima richiesta inviata al controller, che ha la forma <strong>http://machine:port/chemin/main.php</strong>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nx">…</span><span class="o">..</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>   <span class="c1">// retrieve the action to be taken</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  <span class="c1">// si recupera l&#39;azione da intraprendere</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  <span class="nv">$sAction</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">?</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;init&#39;</span><span class="p">;</span>
 </code></pre></div>
-<p>Per impostazione predefinita, ogni azione è associata a uno script responsabile della gestione di tale azione. Ad esempio:</p>
+<p>Per impostazione predefinita, a ogni azione è associato uno script incaricato di elaborarla. Ad esempio:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="o">...</span> 
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  <span class="c1">// configuration of application actions</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1">// configurazione delle azioni dell&#39;applicazione</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;get:init&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;a-init.php&#39;</span><span class="p">);</span>  
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;post:calculerimpot&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;a-calculimpot.php&#39;</span><span class="p">);</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;get:retourformulaire&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;a-retourformulaire.php&#39;</span><span class="p">);</span>
@@ -760,58 +762,58 @@
 <a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;actionInvalide&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;a-actioninvalide.php&#39;</span><span class="p">);</span>          
 </code></pre></div>
 <p>Sono predefinite due azioni:</p>
-<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><div markdown="block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>invalidSequence
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div markdown="block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>enchainementInvalide
 </code></pre></div>
-</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><div style="margin:0 0 0.5em 0">casi in cui l&#x27;azione corrente non può seguire l&#x27;azione precedente</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><div markdown="block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>azione non valida
+</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">nel caso in cui l&#x27;azione in corso non possa seguire quella precedente</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div markdown="block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>actionInvalide
 </code></pre></div>
-</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top;"><div style="margin:0 0 0.5em 0">casi in cui l&#x27;azione richiesta non esiste nel dizionario delle azioni</div></td></tr></table>
+</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">nel caso in cui l&#x27;azione richiesta non esista nel dizionario delle azioni</div></td></tr></table>
 
-<p>Le azioni specifiche dell&#x27;applicazione sono scritte nella forma <strong>metodo:azione</strong>, dove metodo è il metodo <strong>GET</strong> o <strong>POST</strong> della richiesta e <strong>azione</strong> è l&#x27;azione richiesta, in questo caso: <em>init, calculateTax, returnForm, clearForm</em>. Si noti che l&#x27;azione viene recuperata, indipendentemente dal fatto che i parametri siano inviati tramite il metodo GET o POST, utilizzando la sequenza:</p>
+<p>Le azioni specifiche dell&#x27;applicazione sono indicate nella forma <strong>metodo:azione</strong>, dove metodo è il metodo <strong>GET</strong> o <strong>POST</strong> della richiesta e <strong>azione</strong> è l&#x27;azione richiesta, in questo caso: <em>init, calculerimpot, retourformulaire, effacerformulaire</em>. Si noti che l’azione viene recuperata, indipendentemente dal metodo di invio dei parametri (GET o POST), tramite la sequenza:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nx">…</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>   <span class="c1">// retrieve the action to be taken</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  <span class="c1">// si recupera l&#39;azione da intraprendere</span>
 <a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  <span class="nv">$sAction</span><span class="o">=</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">?</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;init&#39;</span><span class="p">;</span> 
 </code></pre></div>
-<p>Infatti, anche se un modulo viene inviato tramite POST, possiamo comunque scrivere:</p>
+<p>Infatti, anche se un modulo viene inviato tramite POST, è comunque possibile scrivere:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#39;post&#39;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#39;main.php?action=calculerimpot&#39;</span><span class="p">&gt;</span>
 <a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>..
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>Gli elementi del modulo verranno inviati (method=&#x27;post&#x27;). Tuttavia, l&#x27;URL richiesto sarà <strong>main.php?action=calculerimpot</strong>. I parametri di questo URL verranno recuperati dall&#x27;array <strong>$_GET</strong>, mentre gli altri elementi del modulo verranno recuperati dall&#x27;array <strong>$_POST</strong>.</p>
-<p>Utilizzando il dizionario delle azioni, il controller esegue l&#x27;azione richiesta come segue:</p>
+<p>Gli elementi del modulo verranno inviati (method=&#x27;post&#x27;). Tuttavia, l&#x27;URL richiesto sarà <strong>main.php?action=calculerimpot</strong>. I parametri di questo URL verranno recuperati nel dizionario <strong>$_GET</strong>, mentre gli altri elementi del modulo verranno recuperati nel dizionario <strong>$_POST</strong>.</p>
+<p>Una volta ottenuto il dizionario delle azioni, il controller esegue l’azione richiesta nel modo seguente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="o">...</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="c1">// share processing</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="c1">// elaborazione dell&#39;azione</span>
 <a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  <span class="nv">$scriptAction</span><span class="o">=</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="nv">$sAction</span><span class="p">]</span> <span class="o">?</span> 
 <a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="nv">$sAction</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">:</span> 
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;actionInvalide&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
 <a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  <span class="k">include</span> <span class="nv">$scriptAction</span><span class="p">;</span>
 </code></pre></div>
-<p>Se l&#x27;azione richiesta non è presente nel dizionario delle azioni, verrà eseguito lo script corrispondente a un&#x27;azione non valida. Una volta caricato nel controller, lo script dell&#x27;azione viene eseguito. Si noti che ha accesso alle variabili del controller ($dConfig, $dSession) e ai dizionari superglobali di PHP ($_GET, $_POST, $_SERVER, $_ENV, $_SESSION). Lo script contiene la logica dell&#x27;applicazione e le chiamate alle classi di business. In tutti i casi, l&#x27;azione deve </p>
+<p>Se l&#x27;azione richiesta non è presente nel dizionario delle azioni, verrà eseguito lo script corrispondente a un&#x27;azione non valida. Una volta caricato lo script dell&#x27;azione all&#x27;interno del controller, questo viene eseguito. Si noti che esso ha accesso alle variabili del controller ($dConfig, $dSession) nonché ai dizionari super-globali di PHP ($_GET, $_POST, $_SERVER, $_ENV, $_SESSION). Nello script si trovano sia la logica applicativa che le chiamate alle classi di business. In ogni caso, l’azione dovrà </p>
 <ul>
-  <li>compilare il dizionario <b>$dSession </b>se è necessario salvare degli elementi nella sessione corrente
+  <li>compilare il dizionario <b>$dSession </b>se alcuni elementi devono essere salvati nella sessione corrente
   </li>
-  <li>specificare in <b>$dResponse[&#x27;vuereponse&#x27;] </b>il nome del modello di risposta da visualizzare 
+  <li>indicare in <b>$dReponse[&#x27;vuereponse&#x27;] </b>il nome del modello di risposta da visualizzare 
   </li>
-  <li>terminare con una chiamata a `<b>finSession($dConfig, $dResponse, $dSession)</b>`. Se la sessione deve essere distrutta, l&#x27;azione terminerà semplicemente con una chiamata a `<b>finSession($dConfig, $dResponse)`</b>.
+  <li>terminare con la chiamata a <b>finSession($dConfig, $dReponse, $dSession)</b>. Se la sessione deve essere chiusa, l&#x27;azione terminerà semplicemente con la chiamata a <b>finSession($dConfig, $dReponse)</b>.
   </li>
 </ul>
 
-<p>Per coerenza, l&#x27;azione può inserire tutte le informazioni necessarie alle viste nel dizionario <strong>$dReponse</strong>. Ma ciò non è obbligatorio. Solo il valore <strong>$dReponse[&#x27;vuereponse&#x27;]</strong> è essenziale. Si noti che ogni script di azione termina con una chiamata alla funzione <strong>finSession</strong>, che a sua volta termina con un&#x27;operazione <strong>di uscita</strong>. Pertanto, non c&#x27;è ritorno da uno script di azione.</p>
-<p><a id="refheading29964107341754"></a></p>
+<p>Per motivi di coerenza, l&#x27;azione potrà inserire nel dizionario <strong>$dReponse</strong> tutte le informazioni necessarie alle viste. Ma non vi è alcun obbligo. È indispensabile solo il valore <strong>$dReponse[&#x27;vuereponse&#x27;]</strong>. Si noti che ogni script di azione termina con la chiamata alla funzione <strong>finSession</strong>, che a sua volta termina con un&#x27;operazione <strong>exit</strong>. Non è quindi possibile tornare indietro da uno script di azione.</p>
+<p><span id="refheading29964107341754" name="refheading29964107341754" class="odt-bookmark-anchor"></span></p>
 <h2 id="37-la-sequenza-delle-azioni">3.7. <span style="color: #4f81bd">La sequenza delle azioni</span></h2>
-<p>Un&#x27;applicazione web può essere vista come una macchina a stati finiti. I vari stati dell&#x27;applicazione sono associati alle viste presentate all&#x27;utente. L&#x27;utente può navigare verso un&#x27;altra vista tramite un link o un pulsante. L&#x27;applicazione web ha cambiato stato. Abbiamo visto che un&#x27;azione viene avviata da una richiesta del tipo <strong>http://machine:port/chemin/main.php?action=XX</strong>. Questo URL deve provenire da un link contenuto nella vista presentata all&#x27;utente. Vogliamo impedire a un utente di digitare direttamente l&#x27;URL <strong>http://machine:port/chemin/main.php?action=XX</strong>, aggirando così il percorso che l&#x27;applicazione ha pianificato per lui. Questo vale anche se il client è un programma.</p>
-<p>Un percorso di navigazione è valido se l&#x27;URL richiesto è raggiungibile dall&#x27;ultima vista presentata all&#x27;utente. L&#x27;elenco di tali URL è facile da determinare. Consiste negli </p>
+<p>È possibile considerare un’applicazione web come un automa a stati finiti. I diversi stati dell’applicazione sono associati alle viste presentate all’utente. Quest’ultimo, tramite un link o un pulsante, passerà a un’altra vista. L’applicazione web ha cambiato stato. Abbiamo visto che un&#x27;azione viene avviata da una richiesta del tipo <strong>http://machine:port/chemin/main.php?action=XX</strong>. Questo URL deve provenire da un link contenuto nella vista presentata all&#x27;utente. Si vuole infatti evitare che un utente digiti direttamente URL <strong>http://machine:port/chemin/main.php?action=XX,</strong> bypassando così il percorso che l’applicazione ha previsto per lui. Ciò vale anche se il cliente è un programma.</p>
+<p>Una sequenza sarà corretta se la URL richiesta è una URL che può essere richiesta a partire dall’ultima vista presentata all’utente. L’elenco di queste è semplice da determinare. È costituito </p>
 <ul>
-  <li>gli URL contenuti nella vista, sia come link che come destinazioni per azioni di tipo submit
+  <li>delle URL contenute nella vista, sia sotto forma di link sia sotto forma di destinazioni di azioni di tipo «submit»
   </li>
-  <li>gli URL che un utente è autorizzato a digitare direttamente nel proprio browser quando la vista è visualizzata.
+  <li>URL, che un utente è autorizzato a digitare direttamente nel proprio browser quando gli viene presentata la vista.
   </li>
 </ul>
 
-<p><strong>L&#x27;elenco degli stati dell&#x27;applicazione non è necessariamente lo stesso dell&#x27;elenco delle viste</strong>. Si consideri, ad esempio, la seguente semplice vista, <code>**erreurs.php**</code>:</p>
+<p><strong>L&#x27;elenco degli stati dell&#x27;applicazione non coincide necessariamente con quello delle viste</strong>. Consideriamo ad esempio la seguente vista elementare <strong>erreurs.php</strong>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Les erreurs suivantes se sont produites :
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="cp">&lt;?php</span>
@@ -823,11 +825,11 @@
 <a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;info&quot;</span><span class="p">&gt;</span><span class="cp">&lt;?php echo $dReponse[&quot;info&quot;] ?&gt;</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;&lt;?php echo $dReponse[&quot;</span><span class="na">href</span><span class="err">&quot;]</span> <span class="err">?</span><span class="p">&gt;</span>&quot;&gt;<span class="cp">&lt;?php echo $dReponse[&quot;lien&quot;] ?&gt;</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>Questa vista di base verrà integrata in una composizione di viste di base che formeranno la risposta. In questa vista, è presente un link che può essere posizionato dinamicamente. La vista <strong>errors.php</strong> potrà quindi essere visualizzata con <strong>n</strong> link diversi a seconda delle circostanze. Ciò comporterà <strong>n</strong> stati diversi per l&#x27;applicazione. Nello stato <strong>#i</strong>, la vista <strong>errors.php</strong> verrà visualizzata con il link <strong>lieni</strong>. In questo stato, è consentito solo l&#x27;uso di <strong>lieni</strong>.</p>
-<p>L&#x27;elenco degli stati di un&#x27;applicazione e le azioni possibili in ciascuno stato saranno memorizzati nel dizionario <strong>$dConfig[&#x27;etats&#x27;]</strong>: </p>
+<p>Questa vista elementare verrà integrata in una composizione di viste elementari che costituirà la risposta. In questa vista è presente un link che può essere posizionato dinamicamente. La vista <strong>erreurs.php</strong> potrà quindi essere visualizzata con <strong>n</strong> collegamenti diversi a seconda delle circostanze. Ciò darà origine a <strong>n</strong> stati diversi per l’applicazione. Nello stato n. <strong>i</strong>, la vista <strong>erreurs.php</strong> verrà visualizzata con il collegamento <strong>lieni</strong>. In questo stato, è consentito solo l’utilizzo di <strong>lieni</strong>.</p>
+<p>L’elenco degli stati di un’applicazione e delle azioni possibili in ciascuno stato sarà registrato nel dizionario <strong>$dConfig[&#x27;etats&#x27;]</strong>: </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="o">...</span>  
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1">// application status configuration</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1">// configurazione degli stati dell&#39;applicazione</span>
 <a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;etats&#39;</span><span class="p">][</span><span class="s1">&#39;e-formulaire&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span>
 <a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>       <span class="s1">&#39;actionsautorisees&#39;</span><span class="o">=&gt;</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;post:calculerimpot&#39;</span><span class="p">,</span><span class="s1">&#39;get:init&#39;</span><span class="p">,</span><span class="s1">&#39;post:effacerformulaire&#39;</span><span class="p">),</span>
 <a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="s1">&#39;vue&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;e-formulaire2.php&#39;</span><span class="p">);</span>
@@ -836,17 +838,17 @@
 <a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>      <span class="s1">&#39;vue&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;e-erreurs2.php&#39;</span><span class="p">);</span>
 <a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;etats&#39;</span><span class="p">][</span><span class="s1">&#39;sansetat&#39;</span><span class="p">]</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;actionsautorisees&#39;</span><span class="o">=&gt;</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;get:init&#39;</span><span class="p">));</span>
 </code></pre></div>
-<p>L&#x27;applicazione sopra riportata presenta due stati denominati: <strong>e-form</strong> ed <strong>e-errors</strong>. Aggiungiamo uno stato denominato <strong>stateless,</strong> che corrisponde all&#x27;avvio iniziale dell&#x27;applicazione quando non aveva alcuno stato. In uno stato <strong>E</strong>, l&#x27;elenco delle azioni consentite si trova nell&#x27;array <strong>$dConfig[&#x27;states&#x27;][E][&#x27;allowedActions&#x27;]</strong>. Esso specifica il metodo consentito (get/post) per l&#x27;azione e il nome dell&#x27;azione. Nell&#x27;esempio sopra riportato, ci sono quattro azioni possibili: <em>get:init</em>, <em>post:calculateTax</em>, <em>get:returnForm</em> e <em>post:clearForm</em>.</p>
-<p>Utilizzando il dizionario <strong>$dConfig[&#x27;etats&#x27;]</strong>, il controller può determinare se l&#x27;attuale <strong>$sAction</strong> è consentita nello stato corrente dell&#x27;applicazione. Questo stato viene costruito da ciascuna azione e memorizzato nella sessione in <strong>$dSession[&#x27;etat&#x27;]</strong>. Il codice del controller per verificare se l&#x27;azione corrente è consentita è il seguente:</p>
+<p>L&#x27;applicazione sopra riportata presenta due stati denominati: <strong>e-modulo</strong> ed <strong>e-errori</strong>. Si aggiunge uno stato denominato <strong>senza-stato</strong> che corrisponde all&#x27;avvio iniziale dell&#x27;applicazione quando questa non presentava alcuno stato. In uno stato <strong>E</strong>, l&#x27;elenco delle azioni consentite si trova nella tabella <strong>$dConfig[&#x27;etats&#x27;][E][&#x27;actionsautorisees&#x27;]</strong>. Qui vengono specificati il metodo (GET/POST) consentito per l’azione e il nome della stessa. Nell’esempio sopra riportato, sono presenti quattro azioni possibili: <em>get:init</em>, <em>post:alculerimpot</em>, <em>get:retourformulaire</em> e <em>post:effacerformulaire</em>.</p>
+<p>Grazie al dizionario <strong>$dConfig[&#x27;etats&#x27;]</strong>, il controller può stabilire se l’azione <strong>$sAction</strong> in corso sia autorizzata o meno nello stato attuale dell’applicazione. Questo stato viene generato da ogni azione e memorizzato nella sessione in <strong>$dSession[&#x27;etat&#x27;]</strong>. Il codice del controller per verificare se l’azione corrente è autorizzata o meno è il seguente:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="o">.....</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>     <span class="c1">// is the sequence of actions normal?</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>     <span class="c1">// La sequenza delle azioni è normale?</span>
 <a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>  <span class="k">if</span><span class="p">(</span> <span class="o">!</span> <span class="nx">enchainementOK</span><span class="p">(</span><span class="nv">$dConfig</span><span class="p">,</span><span class="nv">$dSession</span><span class="p">,</span><span class="nv">$sAction</span><span class="p">)){</span>  
-<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>     <span class="c1">// abnormal sequence</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="c1">// sequenza anomala</span>
 <a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="nv">$sAction</span><span class="o">=</span><span class="s1">&#39;enchainementinvalide&#39;</span><span class="p">;</span>
 <a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>  <span class="p">}</span><span class="c1">//if</span>
 <a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>
-<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>     <span class="c1">// share processing</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>     <span class="c1">// elaborazione dell&#39;azione</span>
 <a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>  <span class="nv">$scriptAction</span><span class="o">=</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="nv">$sAction</span><span class="p">]</span> <span class="o">?</span> 
 <a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="nv">$sAction</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">]</span> <span class="o">:</span> 
 <a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    <span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;actions&#39;</span><span class="p">][</span><span class="s1">&#39;actionInvalide&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">];</span>
@@ -854,40 +856,40 @@
 <a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="o">..........</span>
 <a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>  <span class="c1">//--------------------------------------------------------------------</span>
 <a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>    <span class="k">function</span> <span class="nf">enchainementOK</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$dConfig</span><span class="p">,</span><span class="o">&amp;</span><span class="nv">$dSession</span><span class="p">,</span><span class="nv">$sAction</span><span class="p">){</span>
-<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>       <span class="c1">// checks whether the current action is authorized with respect to the previous state</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>      <span class="c1">// verifica se l&#39;azione corrente è consentita rispetto allo stato precedente</span>
 <a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>    <span class="nv">$etat</span><span class="o">=</span><span class="nv">$dSession</span><span class="p">[</span><span class="s1">&#39;etat&#39;</span><span class="p">][</span><span class="s1">&#39;principal&#39;</span><span class="p">];</span>
 <a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>    <span class="k">if</span><span class="p">(</span><span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$etat</span><span class="p">))</span> <span class="nv">$etat</span><span class="o">=</span><span class="s1">&#39;sansetat&#39;</span><span class="p">;</span>
 <a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>
-<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>     <span class="c1">// check action</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>    <span class="c1">// verifica dell&#39;azione</span>
 <a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>    <span class="nv">$actionsautorisees</span><span class="o">=</span><span class="nv">$dConfig</span><span class="p">[</span><span class="s1">&#39;etats&#39;</span><span class="p">][</span><span class="nv">$etat</span><span class="p">][</span><span class="s1">&#39;actionsautorisees&#39;</span><span class="p">];</span>
 <a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>    <span class="nv">$autorise</span><span class="o">=</span> <span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$actionsautorisees</span><span class="p">)</span> <span class="o">||</span> <span class="nb">in_array</span><span class="p">(</span><span class="nv">$sAction</span><span class="p">,</span><span class="nv">$actionsautorisees</span><span class="p">);</span>
 <a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>        <span class="k">return</span> <span class="nv">$autorise</span><span class="p">;</span>    
 <a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>  <span class="p">}</span>
 </code></pre></div>
-<p>La logica è la seguente: un&#x27;azione <strong>$sAction</strong> è consentita se è presente nell&#x27;elenco <strong>$dConfig[&#x27;states&#x27;][$state][&#x27;allowedActions&#x27;],</strong> oppure, se tale elenco non esiste, in tal caso qualsiasi azione è consentita. <strong>$state</strong> è lo stato dell&#x27;applicazione al termine del precedente ciclo richiesta client/risposta server. Questo stato è stato memorizzato nella sessione e viene recuperato da lì. Se l&#x27;azione richiesta risulta non valida, viene eseguito lo script <strong>$dConfig[&#x27;actions&#x27;][&#x27;invalidSequence&#x27;][&#x27;url&#x27;]</strong>. Questo script si occuperà di inviare una risposta appropriata al client.</p>
-<p>Durante la fase di sviluppo, il dizionario <strong>$dConfig[&#x27;etats&#x27;]</strong> può essere lasciato vuoto. In questo caso, qualsiasi stato consente qualsiasi azione. Il dizionario può essere completato una volta che l&#x27;applicazione è stata completamente sottoposta a debug. Proteggerà l&#x27;applicazione da azioni non autorizzate.</p>
-<p><a id="refheading29966107341754"></a></p>
+<p>La logica è la seguente: un&#x27;azione <strong>$sAction</strong> è autorizzata se è presente nell&#x27;elenco <strong>$dConfig[&#x27;etats&#x27;][$etat][&#x27;actionsautorisees&#x27;]</strong> oppure se tale elenco non esiste autorizzando così qualsiasi azione. <strong>$etat</strong> è lo stato dell’applicazione al termine del precedente ciclo richiesta client/risposta server. Questo stato è stato memorizzato nella sessione e viene recuperato da lì. Se si rileva che l’azione richiesta non è consentita, viene eseguito lo script <strong>$dConfig[&#x27;actions&#x27;][&#x27;enchainementInvalide&#x27;][&#x27;url&#x27;]</strong>. Questo script provvederà a inviare una risposta adeguata al cliente.</p>
+<p>In fase di sviluppo, è possibile non compilare il dizionario <strong>$dConfig[&#x27;etats&#x27;]</strong>. In tal caso, ogni stato autorizza qualsiasi azione. Il dizionario potrà essere messo a punto una volta che l&#x27;applicazione sarà stata completamente sottoposta a debug. Esso proteggerà l&#x27;applicazione da azioni non autorizzate.</p>
+<p><span id="refheading29966107341754" name="refheading29966107341754" class="odt-bookmark-anchor"></span></p>
 <h2 id="38-debug">3.8. <span style="color: #4f81bd">Debug</span></h2>
 <p>Il controller offre due funzioni di debug:</p>
 <ul>
-  <li>la funzione <b>trace </b>visualizza un messaggio nell&#x27;output HTML
+  <li>la funzione <b>trace </b>consente di visualizzare un messaggio nel flusso HTML
   </li>
-  <li>la funzione <b>dump </b>visualizza il contenuto di un dizionario nello stesso flusso
+  <li>la funzione <b>dump </b>consente di visualizzare il contenuto di un dizionario nello stesso flusso
   </li>
 </ul>
 
-<p>Qualsiasi script di azione può utilizzare queste due funzioni. Poiché il codice dello script di azione è incluso nel codice del controller, le funzioni <strong>trace</strong> e <strong>dump</strong> saranno visibili agli script.</p>
-<p><a id="refheading29968107341754"></a></p>
+<p>Qualsiasi script di azione potrà utilizzare queste due funzioni. Infatti, poiché il codice dello script di azione è incluso (include) nel codice del controller, le funzioni <strong>trace</strong> e <strong>dump</strong> saranno visibili dagli script.</p>
+<p><span id="refheading29968107341754" name="refheading29968107341754" class="odt-bookmark-anchor"></span></p>
 <h2 id="39-conclusione">3.9. <span style="color: #4f81bd">Conclusione</span></h2>
-<p>Il controller generico è progettato per consentire allo sviluppatore di concentrarsi sulle azioni e sulle viste della propria applicazione. Si occupa per loro conto di quanto segue:</p>
+<p>Il controller generico ha lo scopo di consentire allo sviluppatore di concentrarsi sulle azioni e sulle viste della propria applicazione. Esso garantisce:</p>
 <ul>
-  <li>gestione della sessione (ripristino, salvataggio)
+  <li>la gestione della sessione (ripristino, salvataggio)
   </li>
-  <li>convalida delle azioni richieste
+  <li>la verifica della validità delle azioni richieste
   </li>
-  <li>esecuzione dello script associato all&#x27;azione
+  <li>l&#x27;esecuzione dello script associato all&#x27;azione
   </li>
-  <li>invio al client di una risposta adeguata al risultato dell&#x27;esecuzione dell&#x27;azione
+  <li>l&#x27;invio al client della risposta adeguata allo stato risultante dall&#x27;esecuzione dell&#x27;azione
   </li>
 </ul>
 
